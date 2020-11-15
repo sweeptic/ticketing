@@ -10,12 +10,12 @@ spec:
       app: auth-mongo
   template:
     metadata:
-    # label that apply the pod
+     # label that apply the pod
       labels:
-        app: auth-mongo 
+        app: auth-mongo
     spec:
       containers:
-        - name: auth-mongo 
+        - name: auth-mongo
           image: mongo
 ---
 apiVersion: v1
@@ -26,7 +26,7 @@ spec:
 # is telling the service which pods it is going to govern access to.
   selector:
     app: auth-mongo
-  ports: 
+  ports:
     - name: db
       protocol: TCP
       port: 27017

@@ -23,6 +23,7 @@ metadata:
 spec:
   selector:
     app: auth
+    #default type of service : ClusterIP
   ports: 
     - name: auth
       protocol: TCP
