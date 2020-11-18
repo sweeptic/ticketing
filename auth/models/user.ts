@@ -18,6 +18,7 @@ interface UserDoc extends mongoose.Document {
   password: string;
 }
 
+//describe properties
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -29,6 +30,9 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+// So this is a middleware function implemented in mongoose.
+// Anytime we attempt to save a document to our database we are going to execute this function right here
+// immediately.
 userSchema.pre('save', async function (done) {
   if (this.isModified('password')) {
     const hashed = await Password.toHash(this.get('password'));
