@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 import { app } from './app';
 
 const start = async () => {
@@ -12,14 +13,14 @@ const start = async () => {
       useUnifiedTopology: true,
       useCreateIndex: true,
     });
-    console.log('connected');
+    console.log('Connected to MongoDb');
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
-};
 
-app.listen(3000, () => {
-  console.log('Listening on port 3000.');
-});
+  app.listen(3000, () => {
+    console.log('Listening on port 3000!!!!!!!!');
+  });
+};
 
 start();

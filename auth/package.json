@@ -8,7 +8,7 @@
     "test": "jest --watchAll --no-cache"
   },
   "jest": {
-    "preset": "ts-test",
+    "preset": "ts-jest",
     "testEnvironment": "node",
     "setupFilesAfterEnv": [
       "./src/test/setup.ts"
@@ -35,8 +35,13 @@
     "@types/jest": "^26.0.15",
     "@types/supertest": "^2.0.10",
     "jest": "^26.6.3",
-    "mongodb-memory-server": "^6.9.2",
+    "mongodb-memory-server": "^6.5.0",
     "supertest": "^6.0.1",
     "ts-jest": "^26.4.4"
+  },
+  "config": {
+    "mongodbMemoryServer": {
+      "version": "4.2.3"
+    }
   }
 }
