@@ -14,7 +14,9 @@ declare global {
 let mongo: any;
 beforeAll(async () => {
   process.env.JWT_KEY = 'asdfasdf';
-  jest.setTimeout(50000);
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
+  // jest.setTimeout(30000);
 
   mongo = new MongoMemoryServer();
   const mongoUri = await mongo.getUri();
