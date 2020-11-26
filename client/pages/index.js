@@ -1,7 +1,13 @@
-import React from 'react';
+const LandingPage = ({ color }) => {
+  console.log('i am in the component', color);
 
-const index = () => {
-  return <div>landing page!</div>;
+  return <h1>landing page!</h1>;
 };
 
-export default index;
+LandingPage.getInitialProps = () => {
+  console.log('i am on the server');
+
+  return { color: 'red' };
+};
+
+export default LandingPage;
