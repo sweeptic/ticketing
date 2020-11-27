@@ -1,4 +1,4 @@
-import axios from 'axios';
+import buildClient from '../api/build-client';
 
 const LandingPage = ({ currentUser }) => {
   console.log(currentUser);
@@ -6,22 +6,9 @@ const LandingPage = ({ currentUser }) => {
   return <h1>landing page!</h1>;
 };
 
-LandingPage.getInitialProps = async ({ req }) => {
-  if (typeof window === 'undefined') {
-    //  we are on server
-    //request to ingress...
-    const { data } = await axios.get(
-      'http://ingress-nginx-controller.kube-system.svc.cluster.local/api/users/currentuser',
-      {
-        headers: req.headers,
-      }
-    );
-    return data;
-  } else {
-    const { data } = await axios.get('/api/users/currentuser');
-    return data;
-    // we are on browser
-  }
+LandingPage.getInitialProps = async context => {
+  const { data } = await buildClient(context).get('/api/users/currentuser');
+  return data;
 };
 
 export default LandingPage;
