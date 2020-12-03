@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-// An new ticket interface
+// An new ticket interface - TO TYPESCRIPT
 interface TicketAttrs {
   title: string;
   price: number;
@@ -10,7 +10,7 @@ interface TicketAttrs {
 // ticket document interface
 //to sadd some additional properties in the future
 interface TicketDoc extends mongoose.Document {
-  title: string;
+  title: string; // typescript type
   price: number;
   userId: string;
 }
@@ -20,19 +20,18 @@ interface TicketModel extends mongoose.Model<TicketDoc> {
   build(attrs: TicketAttrs): TicketDoc;
 }
 
-/*
-import { Password } from '../src/services/password';
-
-
-
-//describe properties
-const userSchema = new mongoose.Schema(
+//describe properties - MONGOOSE VALUE TYPE
+const TicketSchema = new mongoose.Schema(
   {
-    email: {
-      type: String,
+    title: {
+      type: String, //JS global string constructor
       required: true,
     },
-    password: {
+    price: {
+      type: Number,
+      required: true,
+    },
+    userId: {
       type: String,
       required: true,
     },
@@ -40,14 +39,27 @@ const userSchema = new mongoose.Schema(
   {
     toJSON: {
       transform(doc, ret) {
+        //modify data
         ret.id = ret._id;
         delete ret._id;
-        delete ret.password;
-        delete ret.__v;
       },
     },
   }
 );
+
+//with the help of TS
+TicketSchema.statics.build = (attrs: TicketAttrs) => {
+  return new Ticket(attrs);
+};
+
+const Ticket = mongoose.model<TicketDoc, TicketModel>('Ticket', TicketSchema);
+
+export { Ticket };
+/*
+import { Password } from '../src/services/password';
+
+
+
 
 // So this is a middleware function implemented in mongoose.
 // Anytime we attempt to save a document to our database we are going to execute this function right here
@@ -60,16 +72,11 @@ userSchema.pre('save', async function (done) {
   done();
 });
 
-userSchema.statics.build = (attrs: UserAttrs) => {
-  return new User(attrs);
-};
 
-const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
 
 // User.build({
 //   email: 'dfsd',
 //   password: 'sdfsd',
 // });
 
-export { User };
 */
