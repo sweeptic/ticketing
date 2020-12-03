@@ -2,6 +2,7 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import request from 'supertest';
 import { app } from '../app';
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
 
 declare global {
   namespace NodeJS {
