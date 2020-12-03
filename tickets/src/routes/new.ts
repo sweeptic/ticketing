@@ -1,6 +1,8 @@
 import { requireAuth, validateRequest } from '@sgtickets-sweeptic/common';
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
+import { Ticket } from '../models/ticket';
+
 const router = express.Router();
 
 router.post(
@@ -16,8 +18,18 @@ router.post(
 
   validateRequest,
 
-  (req: Request, res: Response) => {
-    res.sendStatus(200);
+  async (req: Request, res: Response) => {
+    const { title, price } = req.body;
+
+    const ticket = Ticket.build({
+      title,
+      price,
+      userId: req.currentUser!.id,
+    });
+
+    await ticket.save();
+
+    res.status(201).send(ticket);
   }
 );
 
