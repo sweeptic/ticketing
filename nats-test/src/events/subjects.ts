@@ -5,6 +5,8 @@ export enum Subjects {
   OrderUpdated = 'order:updated',
 }
 
+/*
 const printSubject = (subject: Subjects) => {};
 printSubject(Subjects.OrderUpdated);
 printSubject(Subjects.TicketCreated);
+*/
