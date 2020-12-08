@@ -1,5 +1,6 @@
 import { Listener } from './base-listener';
 import { Message } from 'node-nats-streaming';
+import { Subjects } from './subjects';
 
 export class TicketCreatedListener extends Listener {
   subject = 'ticket:created';
