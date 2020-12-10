@@ -9,7 +9,6 @@ import {
 import { Ticket } from '../models/ticket';
 import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publisher';
 import { natsWrapper } from '../nats-wrapper';
-import { TicketCreatedPublisher } from '../events/publishers/ticket-created-publisher';
 
 const router = express.Router();
 
@@ -45,7 +44,7 @@ router.put(
 
     await ticket.save();
 
-    new TicketCreatedPublisher(natsWrapper.client).publish({
+    new TicketUpdatedPublisher(natsWrapper.client).publish({
       id: ticket.id,
       title: ticket.title,
       price: ticket.price,
