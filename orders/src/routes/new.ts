@@ -1,19 +1,28 @@
 import express, { Request, Response } from 'express';
-// import { Ticket } from '../models/ticket';
+import { requireAuth, validateRequest } from '@sgtickets-sweeptic/common';
+import { body } from 'express-validator';
+import mongoose from 'mongoose';
 
 const router = express.Router();
 
-router.post('/api/orders', async (req: Request, res: Response) => {
-  //   const tickets = await Ticket.find({});
-
-  res.send({});
-});
+router.post(
+  '/api/orders',
+  requireAuth,
+  [
+    body('ticketId')
+      .not()
+      .isEmpty()
+      .custom((input: string) => mongoose.Types.ObjectId.isValid(input))
+      .withMessage('TicketIdmust be provided'),
+  ],
+  validateRequest,
+  async (req: Request, res: Response) => {
+    res.send({});
+  }
+);
 
 export { router as newOrderRouter };
 
-// import { requireAuth, validateRequest } from '@sgtickets-sweeptic/common';
-// import express, { Request, Response } from 'express';
-// import { body } from 'express-validator';
 // import { TicketCreatedPublisher } from '../events/publishers/ticket-created-publisher';
 // import { Ticket } from '../models/ticket';
 // import { natsWrapper } from '../nats-wrapper';
@@ -24,7 +33,6 @@ export { router as newOrderRouter };
 //   '/api/tickets',
 //   requireAuth,
 
-//   [body('title').not().isEmpty().withMessage('Title is required')],
 //   [
 //     body('price')
 //       .isFloat({ gt: 0 })
