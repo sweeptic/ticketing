@@ -9,7 +9,7 @@ interface OrderAttrs {
 
 interface OrderDoc extends mongoose.Document {
   userId: string;
-  status: string;
+  status: string; //order statuses: pending - expired - cancelled - paided
   expiresAt: Date;
   ticket: TicketDoc;
 }
@@ -51,3 +51,5 @@ orderSchema.statics.build = (attrs: OrderAttrs) => {
 };
 
 const Order = mongoose.model<OrderDoc, OrderModel>('Order', orderSchema);
+
+export { Order };
