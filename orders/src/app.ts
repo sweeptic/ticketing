@@ -8,11 +8,10 @@ import {
   NotFoundError,
   currentUser,
 } from '@sgtickets-sweeptic/common';
-
-import { createTicketRouter } from './routes/new';
-import { showTicketRouter } from './routes/show';
-import { indexTicketRouter } from './routes';
-import { updateTicketRouter } from './routes/update';
+import { deleteOrderRouter } from './routes/delete';
+import { indexOrderRouter } from './routes';
+import { showOrderRouter } from './routes/show';
+import { newOrderRouter } from './routes/new';
 
 const app = express();
 app.set('trust proxy', true);
@@ -25,10 +24,10 @@ app.use(
 );
 app.use(currentUser);
 
-app.use(createTicketRouter);
-app.use(showTicketRouter);
-app.use(indexTicketRouter);
-app.use(updateTicketRouter);
+app.use(deleteOrderRouter);
+app.use(indexOrderRouter);
+app.use(showOrderRouter);
+app.use(newOrderRouter);
 
 app.all('*', async (req, res) => {
   throw new NotFoundError();
