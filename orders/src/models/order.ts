@@ -1,5 +1,6 @@
 import { OrderStatus } from '@sgtickets-sweeptic/common';
 import mongoose from 'mongoose';
+import { TicketDoc } from './ticket';
 
 interface OrderAttrs {
   userId: string;
