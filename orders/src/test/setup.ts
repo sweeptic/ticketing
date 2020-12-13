@@ -1,7 +1,5 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
-import request from 'supertest';
-import { app } from '../app';
 import jwt from 'jsonwebtoken';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
