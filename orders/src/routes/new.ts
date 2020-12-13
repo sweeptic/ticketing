@@ -1,7 +1,13 @@
 import express, { Request, Response } from 'express';
-import { requireAuth, validateRequest } from '@sgtickets-sweeptic/common';
+import {
+  NotFoundError,
+  requireAuth,
+  validateRequest,
+} from '@sgtickets-sweeptic/common';
 import { body } from 'express-validator';
 import mongoose from 'mongoose';
+import { Ticket } from '../models/ticket';
+import { Order } from '../models/order';
 
 const router = express.Router();
 
@@ -17,6 +23,22 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
+    const { ticketId } = req.body;
+
+    //find the ticket the user is typing to order in the database
+    const ticket = await Ticket.findById(ticketId);
+    if (!ticket) {
+      throw new NotFoundError();
+    }
+
+    //make sure that this ticket is not alredy reserved
+
+    //calculate an expiration date for this order
+
+    //build the order and save it to the database
+
+    //publish an event saying that an order was created
+
     res.send({});
   }
 );
