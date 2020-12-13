@@ -13,6 +13,8 @@ import { Order } from '../models/order';
 
 const router = express.Router();
 
+const EXPIRATION_WINDOW_SECONDS = 15 * 60;
+
 router.post(
   '/api/orders',
   requireAuth,
@@ -36,61 +38,28 @@ router.post(
     // Run query to look at all orders.  Find an order where the ticket
     // is the ticket we just found *and* the orders status is *not* cancelled.
     // If we find an order from that means the ticket *is* reserved
-
-    if (existingOrder) {
+    const isReserved = await ticket.isReserved();
+    if (isReserved) {
       throw new BadRequestError('Ticket is already reserved');
     }
 
     //calculate an expiration date for this order
+    const expiration = new Date();
+    expiration.setSeconds(expiration.getSeconds() + EXPIRATION_WINDOW_SECONDS);
 
     //build the order and save it to the database
+    const order = Order.build({
+      userId: req.currentUser!.id,
+      status: OrderStatus.Created,
+      expiresAt: expiration,
+      ticket: ticket,
+    });
 
     //publish an event saying that an order was created
+    await order.save();
 
-    res.send({});
+    res.status(201).send(order);
   }
 );
 
 export { router as newOrderRouter };
-
-// import { TicketCreatedPublisher } from '../events/publishers/ticket-created-publisher';
-// import { Ticket } from '../models/ticket';
-// import { natsWrapper } from '../nats-wrapper';
-
-// const router = express.Router();
-
-// router.post(
-//   '/api/tickets',
-//   requireAuth,
-
-//   [
-//     body('price')
-//       .isFloat({ gt: 0 })
-//       .withMessage('Price must be greater than 0'),
-//   ],
-
-//   validateRequest,
-
-//   async (req: Request, res: Response) => {
-//     const { title, price } = req.body;
-
-//     const ticket = Ticket.build({
-//       title,
-//       price,
-//       userId: req.currentUser!.id,
-//     });
-
-//     await ticket.save();
-
-//     await new TicketCreatedPublisher(natsWrapper.client).publish({
-//       id: ticket.id,
-//       title: ticket.title,
-//       price: ticket.price,
-//       userId: ticket.userId,
-//     });
-
-//     res.status(201).send(ticket);
-//   }
-// );
-
-// export { router as createTicketRouter };
