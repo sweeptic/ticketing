@@ -1,29 +1,29 @@
+import {
+  NotAuthorizedError,
+  NotFoundError,
+  requireAuth,
+} from '@sgtickets-sweeptic/common';
 import express, { Request, Response } from 'express';
-// import { Ticket } from '../models/ticket';
+import { Order } from '../models/order';
 
 const router = express.Router();
 
-router.get('/api/orders/:orderId', async (req: Request, res: Response) => {
-  //   const tickets = await Ticket.find({});
+router.get(
+  '/api/orders/:orderId',
+  requireAuth,
+  async (req: Request, res: Response) => {
+    const order = await Order.findById(req.params.orderId).populate('ticket');
 
-  res.send({});
-});
+    if (!order) {
+      throw new NotFoundError();
+    }
+
+    if (order.userId !== req.currentUser!.id) {
+      throw new NotAuthorizedError();
+    }
+
+    res.send(order);
+  }
+);
 
 export { router as showOrderRouter };
-
-// import { NotFoundError } from '@sgtickets-sweeptic/common';
-// import express, { Request, Response } from 'express';
-// import { Ticket } from '../models/ticket';
-
-// const router = express.Router();
-
-// router.get('/api/tickets/:id', async (req: Request, res: Response) => {
-//   // const { title, price } = req.body;
-
-//   const ticket = await Ticket.findById(req.params.id);
-//   if (!ticket) {
-//     throw new NotFoundError();
-//   }
-// });
-
-// export { router as showTicketRouter };
