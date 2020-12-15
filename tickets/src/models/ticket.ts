@@ -3,7 +3,6 @@ import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 // An new ticket interface - TO TYPESCRIPT
 interface TicketAttrs {
-  id: string;
   title: string;
   price: number;
   userId: string;
