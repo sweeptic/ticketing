@@ -23,7 +23,7 @@ interface TicketModel extends mongoose.Model<TicketDoc> {
 }
 
 //describe properties - MONGOOSE VALUE TYPE
-const TicketSchema = new mongoose.Schema(
+const ticketSchema = new mongoose.Schema(
   {
     title: {
       type: String, //JS global string constructor
@@ -48,14 +48,14 @@ const TicketSchema = new mongoose.Schema(
     },
   }
 );
-TicketSchema.set('versionKey', 'version');
-TicketSchema.plugin(updateIfCurrentPlugin);
+ticketSchema.set('versionKey', 'version');
+ticketSchema.plugin(updateIfCurrentPlugin);
 
 //with the help of TS
-TicketSchema.statics.build = (attrs: TicketAttrs) => {
+ticketSchema.statics.build = (attrs: TicketAttrs) => {
   return new Ticket({ attrs });
 };
 
-const Ticket = mongoose.model<TicketDoc, TicketModel>('Ticket', TicketSchema);
+const Ticket = mongoose.model<TicketDoc, TicketModel>('Ticket', ticketSchema);
 
 export { Ticket };
