@@ -53,11 +53,7 @@ TicketSchema.plugin(updateIfCurrentPlugin);
 
 //with the help of TS
 TicketSchema.statics.build = (attrs: TicketAttrs) => {
-  return new Ticket({
-    _id: attrs.id,
-    title: attrs.title,
-    price: attrs.price,
-  });
+  return new Ticket({ attrs });
 };
 
 const Ticket = mongoose.model<TicketDoc, TicketModel>('Ticket', TicketSchema);
