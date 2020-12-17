@@ -5,12 +5,10 @@ metadata:
 spec:
   replicas: 1
   selector:
-  # how deployment going to find the pod that it actually creates
     matchLabels:
       app: orders-mongo
   template:
     metadata:
-     # label that apply the pod
       labels:
         app: orders-mongo
     spec:
@@ -23,7 +21,6 @@ kind: Service
 metadata:
   name: orders-mongo-srv
 spec:
-# is telling the service which pods it is going to govern access to.
   selector:
     app: orders-mongo
   ports:
