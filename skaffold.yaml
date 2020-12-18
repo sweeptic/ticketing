@@ -24,8 +24,16 @@ build:
     #     manual:
     #       - src: '**/*.js'
     #         dest: .
-    - image: olive4/tickets
-      context: tickets
+    # - image: olive4/tickets
+    #   context: tickets
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     manual:
+    #       - src: 'src/**/*.ts'
+    #         dest: .
+    - image: olive4/expiration
+      context: expiration
       docker:
         dockerfile: Dockerfile
       sync:
