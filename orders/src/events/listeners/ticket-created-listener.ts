@@ -1,10 +1,10 @@
 import { Message } from 'node-nats-streaming';
 import {
-  TicketCreatedEvent,
-  Listener,
   Subjects,
+  Listener,
+  TicketCreatedEvent,
 } from '@sgtickets-sweeptic/common';
-import { Ticket } from '../models/ticket';
+import { Ticket } from '../../models/ticket';
 import { queueGroupName } from './queue-group-name';
 
 export class TicketCreatedListener extends Listener<TicketCreatedEvent> {
@@ -12,8 +12,10 @@ export class TicketCreatedListener extends Listener<TicketCreatedEvent> {
   queueGroupName = queueGroupName;
 
   async onMessage(data: TicketCreatedEvent['data'], msg: Message) {
-    const { title, price } = data;
+    const { id, title, price } = data;
+
     const ticket = Ticket.build({
+      id,
       title,
       price,
     });

@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 import { Message } from 'node-nats-streaming';
 import { TicketUpdatedEvent } from '@sgtickets-sweeptic/common';
 import { TicketUpdatedListener } from '../ticket-updated-listener';
-import { natsWrapper } from '../../nats-wrapper';
-import { Ticket } from '../../models/ticket';
+import { natsWrapper } from '../../../nats-wrapper';
+import { Ticket } from '../../../models/ticket';
 
 const setup = async () => {
   // Create a listener

@@ -7,9 +7,5 @@ export const natsWrapper = {
           callback();
         }
       ),
-
-    // publish: (subject: string, data: string, callback: () => void) => {
-    //   callback();
-    // },
   },
 };

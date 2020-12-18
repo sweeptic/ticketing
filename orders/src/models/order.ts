@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 import { OrderStatus } from '@sgtickets-sweeptic/common';
 import { TicketDoc } from './ticket';
-import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 export { OrderStatus };
 
@@ -14,7 +14,7 @@ interface OrderAttrs {
 
 interface OrderDoc extends mongoose.Document {
   userId: string;
-  status: OrderStatus; //order statuses: pending - expired - cancelled - paided
+  status: OrderStatus;
   expiresAt: Date;
   ticket: TicketDoc;
   version: number;

@@ -1,11 +1,11 @@
-import {
-  NotAuthorizedError,
-  NotFoundError,
-  requireAuth,
-} from '@sgtickets-sweeptic/common';
 import express, { Request, Response } from 'express';
-import { OrderCancelledPublisher } from '../events/publishers/order-cancelled-publisher';
+import {
+  requireAuth,
+  NotFoundError,
+  NotAuthorizedError,
+} from '@sgtickets-sweeptic/common';
 import { Order, OrderStatus } from '../models/order';
+import { OrderCancelledPublisher } from '../events/publishers/order-cancelled-publisher';
 import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
@@ -21,17 +21,16 @@ router.delete(
     if (!order) {
       throw new NotFoundError();
     }
-
     if (order.userId !== req.currentUser!.id) {
       throw new NotAuthorizedError();
     }
-
     order.status = OrderStatus.Cancelled;
     await order.save();
 
+    // publishing an event saying this was cancelled!
     new OrderCancelledPublisher(natsWrapper.client).publish({
-      version: order.version,
       id: order.id,
+      version: order.version,
       ticket: {
         id: order.ticket.id,
       },

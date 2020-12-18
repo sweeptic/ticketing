@@ -22,7 +22,6 @@ it('returns an error if the ticket is already reserved', async () => {
     price: 20,
   });
   await ticket.save();
-
   const order = Order.build({
     ticket,
     userId: 'laskdflkajsdf',

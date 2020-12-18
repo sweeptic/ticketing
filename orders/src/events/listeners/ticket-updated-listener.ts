@@ -1,10 +1,10 @@
 import { Message } from 'node-nats-streaming';
 import {
-  TicketUpdatedEvent,
-  Listener,
   Subjects,
+  Listener,
+  TicketUpdatedEvent,
 } from '@sgtickets-sweeptic/common';
-import { Ticket } from '../models/ticket';
+import { Ticket } from '../../models/ticket';
 import { queueGroupName } from './queue-group-name';
 
 export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {

@@ -1,6 +1,6 @@
 import {
-  Publisher,
   Subjects,
+  Publisher,
   OrderCancelledEvent,
 } from '@sgtickets-sweeptic/common';
 
