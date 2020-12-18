@@ -18,7 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@sgtickets-sweeptic/common": "^1.0.10",
+    "@sgtickets-sweeptic/common": "^1.0.12",
     "@types/bull": "^3.14.4",
     "bull": "^3.20.0",
     "ts-node-dev": "^1.0.0",
