@@ -1,11 +1,10 @@
+import { Message } from 'node-nats-streaming';
 import {
   Listener,
   OrderCreatedEvent,
-  Publisher,
   Subjects,
 } from '@sgtickets-sweeptic/common';
 import { queueGroupName } from './queue-group-name';
-import { Message } from 'node-nats-streaming';
 import { Ticket } from '../../models/ticket';
 import { TicketUpdatedPublisher } from '../publishers/ticket-updated-publisher';
 
@@ -14,30 +13,29 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
   queueGroupName = queueGroupName;
 
   async onMessage(data: OrderCreatedEvent['data'], msg: Message) {
-    // find the ticket that the order is reserved
+    // Find the ticket that the order is reserving
     const ticket = await Ticket.findById(data.ticket.id);
 
-    //if no ticket, throw error
+    // If no ticket, throw error
     if (!ticket) {
       throw new Error('Ticket not found');
     }
 
-    //mark te ticket as being reserved by setting its orderId property
+    // Mark the ticket as being reserved by setting its orderId property
     ticket.set({ orderId: data.id });
 
-    //save the ticket
+    // Save the ticket
     await ticket.save();
-
     await new TicketUpdatedPublisher(this.client).publish({
-      id: ticket.id,
+      id: ticket.id!,
       price: ticket.price,
-      userId: ticket.userId,
       title: ticket.title,
+      userId: ticket.userId,
       orderId: ticket.orderId,
       version: ticket.version,
     });
 
-    //ack the message
+    // ack the message
     msg.ack();
   }
 }

@@ -1,8 +1,8 @@
 import request from 'supertest';
 import { app } from '../../app';
 import mongoose from 'mongoose';
-import { natsWrapper } from '../../nats-wrapper';
 import { Ticket } from '../../models/ticket';
+import { natsWrapper } from '../../nats-wrapper';
 
 it('returns a 404 if the provided id does not exist', async () => {
   const id = new mongoose.Types.ObjectId().toHexString();
@@ -70,8 +70,8 @@ it('returns a 400 if the user provides an invalid title or price', async () => {
     .put(`/api/tickets/${response.body.id}`)
     .set('Cookie', cookie)
     .send({
-      title: 'fdgfdg',
-      price: -20,
+      title: 'alskdfjj',
+      price: -10,
     })
     .expect(400);
 });

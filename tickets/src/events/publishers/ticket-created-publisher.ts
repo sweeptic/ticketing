@@ -1,7 +1,7 @@
 import {
-  TicketCreatedEvent,
   Publisher,
   Subjects,
+  TicketCreatedEvent,
 } from '@sgtickets-sweeptic/common';
 
 export class TicketCreatedPublisher extends Publisher<TicketCreatedEvent> {
