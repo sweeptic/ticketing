@@ -8,51 +8,19 @@ build:
   local:
     push: false
   artifacts:
-    # - image: olive4/auth
-    #   context: auth
-    #   docker:
-    #     dockerfile: Dockerfile
-    #   sync:
-    #     manual:
-    #       - src: 'src/**/*.ts'
-    #         dest: .
-    # - image: olive4/client
-    #   context: client
-    #   docker:
-    #     dockerfile: Dockerfile
-    #   sync:
-    #     manual:
-    #       - src: '**/*.js'
-    #         dest: .
-    - image: olive4/tickets
-      context: tickets
+    - image: olive4/auth
+      context: auth
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    # - image: olive4/expiration
-    #   context: expiration
-    #   docker:
-    #     dockerfile: Dockerfile
-    #   sync:
-    #     manual:
-    #       - src: 'src/**/*.ts'
-    #         dest: .
-    - image: olive4/orders
-      context: orders
+    - image: olive4/client
+      context: client
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: 'src/**/*.ts'
+          - src: '**/*.js'
             dest: .
-    # - image: olive4/payments
-    #   context: payments
-    #   docker:
-    #     dockerfile: Dockerfile
-    #   sync:
-    #     manual:
-    #       - src: 'src/**/*.ts'
-    #         dest: .            
