@@ -1,6 +1,6 @@
 {
-  "name": "@sgtickets-sweeptic/common",
-  "version": "1.0.1",
+  "name": "@sgtickets-sweeptic2/common",
+  "version": "1.0.6",
   "description": "",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -8,15 +8,16 @@
     "build/**/*"
   ],
   "scripts": {
-    "build": "npm run tsc",
+    "build": "tsc",
     "pub": "git add . && git commit -m \"Updates\" && npm version patch && npm run build && npm publish"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "de-cli": "^0.2.0",
     "del-cli": "^3.0.0",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.7"
   },
   "dependencies": {
     "@types/cookie-session": "^2.0.39",
