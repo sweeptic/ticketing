@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: olive4/client:latest
+          image: stephengrider/client
 ---
 apiVersion: v1
 kind: Service
@@ -23,10 +23,8 @@ metadata:
 spec:
   selector:
     app: client
-    #default type of service : ClusterIP
-  ports: 
+  ports:
     - name: client
       protocol: TCP
       port: 3000
       targetPort: 3000
-  

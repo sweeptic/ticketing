@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import useRequest from '../../hooks/useRequest';
+import { useState, useEffect } from 'react';
 import Router from 'next/router';
+import useRequest from '../../hooks/use-request';
 
-const signup = () => {
+export default () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { doRequest, errors } = useRequest({
@@ -10,9 +10,9 @@ const signup = () => {
     method: 'post',
     body: {
       email,
-      password,
+      password
     },
-    onSuccess: () => Router.push('/'),
+    onSuccess: () => Router.push('/')
   });
 
   const onSubmit = async event => {
@@ -22,29 +22,27 @@ const signup = () => {
   };
 
   return (
-    <form className='container' onSubmit={onSubmit}>
+    <form onSubmit={onSubmit}>
       <h1>Sign Up</h1>
-      <div className='form-group'>
+      <div className="form-group">
         <label>Email Address</label>
         <input
-          className='form-control'
           value={email}
-          onChange={ev => setEmail(ev.target.value)}
+          onChange={e => setEmail(e.target.value)}
+          className="form-control"
         />
       </div>
-      <div className='form-group'>
+      <div className="form-group">
         <label>Password</label>
         <input
-          type='password'
-          className='form-control'
           value={password}
-          onChange={ev => setPassword(ev.target.value)}
+          onChange={e => setPassword(e.target.value)}
+          type="password"
+          className="form-control"
         />
       </div>
       {errors}
-      <button className='btn btn-primary'>Sign Up</button>
+      <button className="btn btn-primary">Sign Up</button>
     </form>
   );
 };
-
-export default signup;
