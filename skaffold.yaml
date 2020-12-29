@@ -4,11 +4,12 @@ deploy:
   kubectl:
     manifests:
       - ./infra/k8s/*
+      - ./infra/k8s-dev/*
 build:
   local:
     push: false
   artifacts:
-    - image: stephengrider/auth
+    - image: olive4/auth
       context: auth
       docker:
         dockerfile: Dockerfile
@@ -16,7 +17,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: stephengrider/client
+    - image: olive4/client
       context: client
       docker:
         dockerfile: Dockerfile
@@ -24,7 +25,7 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
-    - image: stephengrider/tickets
+    - image: olive4/tickets
       context: tickets
       docker:
         dockerfile: Dockerfile
@@ -32,7 +33,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: stephengrider/orders
+    - image: olive4/orders
       context: orders
       docker:
         dockerfile: Dockerfile
@@ -40,7 +41,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: stephengrider/expiration
+    - image: olive4/expiration
       context: expiration
       docker:
         dockerfile: Dockerfile
@@ -48,7 +49,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: stephengrider/payments
+    - image: olive4/payments
       context: payments
       docker:
         dockerfile: Dockerfile
